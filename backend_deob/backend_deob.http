@@ -1,0 +1,6 @@
+@backend_deob_HostAddress = http://localhost:5289
+
+GET {{backend_deob_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

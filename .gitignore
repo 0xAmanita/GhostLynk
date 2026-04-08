@@ -1,0 +1,59 @@
+# Root / Environment Secrets
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Database (Shared SQLite)
+*.sqlite3
+*.db
+*.db3
+*.sqlite
+backend_admin/db.sqlite3
+
+# OS & IDEs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln.docstates
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/.eslintcache
+
+# Public Backend
+backend_public/bin/
+backend_public/obj/
+backend_public/TestResults/
+
+# Ignore development settings that might contain local connection strings/secrets
+backend_public/appsettings.Development.json
+backend_public/appsettings.*.json
+!backend_public/appsettings.json
+*.user
+*.userosscache
+*.sln.user
+
+# Admin Backend
+backend_admin/__pycache__/
+backend_admin/*.py[cod]
+backend_admin/*$py.class
+backend_admin/venv/
+backend_admin/env/
+backend_admin/.venv/
+backend_admin/media/
+backend_admin/staticfiles/
+backend_admin/.pytest_cache/
