@@ -59,37 +59,39 @@ npm run dev
 
 ## 3. User Roles
 
-### PUBLIC USER (Anonymous, no login required)
+### REGISTERED USER (Account Required)
+* Creates an account and logs in to generate a JWT.
 * Submits a URL with a nickname and a passkey per entry.
-* Rate limited: 1 submission per 5 minutes per session.
+* Rate limited: 3 submissions per hour per user account (prevents session-drop abuse).
 * Views all entries as obfuscated text with nickname and timestamp.
 * Can deobfuscate an entry using the correct obfuscated text, nickname, and passkey.
-* Deobfuscation is rate limited: 1 attempt per 5 minutes; max 3 wrong passkey attempts before entry locks.
+* Deobfuscation is rate limited: 3 attempts per hour per user account; max 3 wrong passkey attempts before a specific entry locks.
 * Cannot edit or delete any entry.
 
 ### ADMIN (Single account, login required)
 * Logs in via Django `/api/admin/login` or the built-in Django Admin portal.
-* Dashboard shows all entries: plaintext URL, obfuscated text, nickname, timestamp, ipinfo.io metadata, and lock status.
+* Dashboard shows all entries: plaintext URL, obfuscated text, nickname, timestamp, ipinfo.io metadata, and lock status, as well as the submitting User ID.
 * Full CRUD: create, read, update, and delete any entry.
 * Can unlock any passkey-locked entry.
 * Bypasses all rate limiting.
 
 ## 4. Feature Specification
 
-### 4.1 URL Submission (Public)
+### 4.1 User Registration & Authentication
+* Users must register via /api/auth/register with email, username, first name, last name, address, password and password repeat (all must be in proper format before a valid submission).
+* Passwords are bcrypt-hashed.
+* Users login via /api/auth/login to receive a JSON Web Token (JWT).
+* The JWT must be included in the Authorization: Bearer <token> header for all submission and deobfuscation requests.
+
+### 4.2 URL Submission
 * User fills in three required fields: URL, nickname, and passkey.
 * Frontend validates URL format before submission.
 * Passkey is bcrypt-hashed server-side before storage — plaintext passkey is never persisted.
-* Rate limit: 1 submission per 5-minute window per session; form is disabled with a live countdown when limited.
+* Rate limit: 3 submissions per 1-hour window per user account.
 * On success, obfuscated URL + nickname + timestamp are returned and appended to the public feed.
 
-### 4.2 Public Feed (Public)
-* Displays all submitted entries, newest first.
-* Each card shows: obfuscated URL text, nickname, and timestamp.
-* Original URL is never displayed in the public feed.
-
-### 4.3 Deobfuscation (Public)
-* A dedicated Deobfuscate panel sits below the public feed on the frontend.
+### 4.3 Deobfuscation
+* A dedicated Deobfuscate panel sits on a different page, navigating on the navbar; feed on the frontend.
 * The panel contains exactly three input fields with no hints beyond their labels: Obfuscated Text, Nickname, and Passkey.
 * Backend looks up the entry by ObfuscatedUrl + Nickname, then bcrypt-verifies the passkey.
 * On success: returns plaintext URL, nickname, and timestamp.
@@ -196,7 +198,11 @@ Server: Nginx
 [ipinfo.io] (called by ASP.NET on submission only)
 ```
 
-### 9.1 Flow - URL Submission (Handled by ASP.NET Core)
+### 9.1 Flow - User Registration & Login (ASP.NET Core)
+1. User POSTs to `/api/auth/register` to create an account.
+2. User POSTs to `/api/auth/login` and generates a JWT.
+
+### 9.2 Flow - URL Submission (Handled by ASP.NET Core)
 1. User submits URL + nickname + passkey.
 2. Backend checks session submission rate limit.
 3. Validates URL, bcrypt-hashes passkey.
@@ -204,12 +210,13 @@ Server: Nginx
 5. Runs obfuscation.
 6. Saves full record to shared SQLite DB.
 
-### 9.2 Flow - Deobfuscation (Handled by ASP.NET Core)
-1. Checks DB for ObfuscatedUrl + Nickname.
-2. BCrypt.Verify passkey.
-3. Runs reverse pipeline and returns original URL.
+### 9.3 Flow - Deobfuscation (Handled by ASP.NET Core)
+1. User submits request with JWT Bearer token.
+2. Checks DB for ObfuscatedUrl + Nickname.
+3. BCrypt.Verify passkey.
+4. Runs reverse pipeline and returns original URL.
 
-### 9.3 Flow - Admin (Handled by Python Django)
+### 9.4 Flow - Admin (Handled by Python Django)
 1. Admin POSTs credentials to `/api/admin/login` (handled by Django).
 2. Dashboard fetches `GET /api/admin/urls`.
 3. Admin can PUT, DELETE, bulk DELETE, or PATCH unlock directly via Django APIs connected to the shared database.
