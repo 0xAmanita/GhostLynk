@@ -137,4 +137,27 @@ public class AuthController : ControllerBase
 
         return Ok(new ApiResponse<object> { Success = true, Message = "If the email exists, a reset link has been sent" });
     }
+
+    [HttpPost("reset-password")]
+    public async Task<ActionResult<ApiResponse<object>>> ResetPassword(ResetPasswordRequest request)
+    {
+        var tokenHash = Convert.ToBase64String(
+            SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(request.Token))
+        );
+
+        var resetToken = await _context.PasswordResetTokens
+            .Include(rt => rt.User)
+            .FirstOrDefaultAsync(rt => rt.TokenHash == tokenHash && rt.UsedAt == null);
+
+        if (resetToken == null || resetToken.ExpiresAt < DateTime.UtcNow)
+            return BadRequest(new ApiResponse<object> { Success = false, Message = "Invalid or expired token" });
+
+        resetToken.User.PasswordHash = _passwordHashService.HashPassword(request.Password);
+        resetToken.User.UpdatedAt = DateTime.UtcNow;
+        resetToken.UsedAt = DateTime.UtcNow;
+
+        await _context.SaveChangesAsync();
+
+        return Ok(new ApiResponse<object> { Success = true, Message = "Password reset successful" });
+    }
 }
