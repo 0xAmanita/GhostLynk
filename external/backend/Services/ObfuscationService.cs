@@ -21,4 +21,24 @@ public class ObfuscationService : IObfuscationService
     {
         throw new NotImplementedException();
     }
+
+    private string CaesarCipher(string input)
+    {
+        var result = new char[input.Length];
+        for (int i = 0; i < input.Length; i++)
+        {
+            result[i] = (char)(input[i] + _caesarShift);
+        }
+        return new string(result);
+    }
+
+    private string CaesarDecipher(string input)
+    {
+        var result = new char[input.Length];
+        for (int i = 0; i < input.Length; i++)
+        {
+            result[i] = (char)(input[i] - _caesarShift);
+        }
+        return new string(result);
+    }
 }
