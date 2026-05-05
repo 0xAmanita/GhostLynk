@@ -47,6 +47,8 @@ app.UseHttpsRedirection();
 
 app.UseMiddleware<JwtMiddleware>();
 
+app.MapControllers();
+
 var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild",
