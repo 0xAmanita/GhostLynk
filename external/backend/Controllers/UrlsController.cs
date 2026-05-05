@@ -121,4 +121,50 @@ public class UrlsController : ControllerBase
             return StatusCode(500, new { error = "An error occurred while submitting the URL" });
         }
     }
+
+    [HttpGet("feed")]
+    public async Task<IActionResult> GetFeed([FromQuery] int page = 1, [FromQuery] int pageSize = 20)
+    {
+        var userId = GetCurrentUserId();
+        if (userId == null)
+        {
+            return Unauthorized(new { error = "Authentication required" });
+        }
+
+        // Validate pagination parameters
+        if (page < 1) page = 1;
+        if (pageSize < 1) pageSize = 20;
+        if (pageSize > 100) pageSize = 100;
+
+        try
+        {
+            var totalCount = await _context.UrlEntries.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
+            var entries = await _context.UrlEntries
+                .OrderByDescending(e => e.CreatedAt)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(e => new FeedEntryDto
+                {
+                    ObfuscatedUrl = e.ObfuscatedUrl,
+                    Nickname = e.Nickname,
+                    CreatedAt = e.CreatedAt
+                })
+                .ToListAsync();
+
+            return Ok(new FeedResponse
+            {
+                Entries = entries,
+                TotalCount = totalCount,
+                CurrentPage = page,
+                TotalPages = totalPages
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error fetching feed for user {UserId}", userId);
+            return StatusCode(500, new { error = "An error occurred while fetching the feed" });
+        }
+    }
 }
