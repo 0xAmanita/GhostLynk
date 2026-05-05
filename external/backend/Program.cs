@@ -14,6 +14,8 @@ builder.Services.AddScoped<IPasswordHashService, PasswordHashService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddHttpClient<IEmailService, EmailService>();
 builder.Services.AddScoped<IObfuscationService, ObfuscationService>();
+builder.Services.AddScoped<IRateLimitService, RateLimitService>();
+builder.Services.AddHttpClient<IIpInfoService, IpInfoService>();
 builder.Services.AddHttpClient<IIpInfoService, IpInfoService>();
 builder.Services.AddScoped<IRateLimitService, RateLimitService>();
 
@@ -46,6 +48,8 @@ app.UseCors("AllowFrontend");
 app.UseHttpsRedirection();
 
 app.UseMiddleware<JwtMiddleware>();
+
+app.MapControllers();
 
 var summaries = new[]
 {
