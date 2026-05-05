@@ -15,6 +15,9 @@ export default function Navbar() {
       <Link to="/">Home</Link>
       {user ? (
         <>
+          <Link to="/submit">Submit</Link>
+          <Link to="/feed">Feed</Link>
+          <Link to="/deobfuscate">Deobfuscate</Link>
           <span>Welcome, {user.username}</span>
           <button onClick={handleLogout}>Logout</button>
         </>
