@@ -56,4 +56,19 @@ public class ObfuscationService : IObfuscationService
     {
         return XorEncode(input);
     }
+
+    private byte[] CarlSuelloEncode(byte[] input)
+    {
+        var result = new byte[input.Length];
+        for (int i = 0; i < input.Length; i++)
+        {
+            result[i] = (byte)((input[i] << 4) | (input[i] >> 4));
+        }
+        return result;
+    }
+
+    private byte[] CarlSuelloDecode(byte[] input)
+    {
+        return CarlSuelloEncode(input);
+    }
 }
