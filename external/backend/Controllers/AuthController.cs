@@ -106,8 +106,15 @@ public class AuthController : ControllerBase
 
         var tokenBytes = new byte[32];
         RandomNumberGenerator.Fill(tokenBytes);
-        var token = Convert.ToBase64String(tokenBytes).Replace("+", "-").Replace("/", "_").Replace("=", "");
-        var tokenHash = Convert.ToBase64String(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(token)));
+
+        var token = Convert.ToBase64String(tokenBytes)
+            .Replace("+", "-")
+            .Replace("/", "_")
+            .Replace("=", "");
+
+        var tokenHash = Convert.ToBase64String(
+            SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(token))
+        );
 
         var resetToken = new PasswordResetToken
         {
