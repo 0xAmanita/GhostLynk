@@ -52,4 +52,43 @@ public class AuthController : ControllerBase
 
         return Ok(new ApiResponse<object> { Success = true, Message = "Registration successful" });
     }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<ApiResponse<AuthResponse>>> Login(LoginRequest request)
+    {
+        var user = await _context.Users
+            .FirstOrDefaultAsync(u => u.Email == request.EmailOrUsername || u.Username == request.EmailOrUsername);
+
+        if (user == null || !_passwordHashService.VerifyPassword(request.Password, user.PasswordHash))
+            return Unauthorized(new ApiResponse<AuthResponse> { Success = false, Message = "Invalid credentials" });
+
+        var token = _jwtService.GenerateToken(user);
+
+        var session = new Session
+        {
+            Id = Guid.NewGuid(),
+            UserId = user.Id,
+            SessionToken = token,
+            ExpiresAt = DateTime.UtcNow.AddHours(24),
+            CreatedAt = DateTime.UtcNow
+        };
+
+        _context.Sessions.Add(session);
+        await _context.SaveChangesAsync();
+
+        var authResponse = new AuthResponse
+        {
+            Token = token,
+            User = new UserProfile
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Username = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            }
+        };
+
+        return Ok(new ApiResponse<AuthResponse> { Success = true, Data = authResponse });
+    }
 }
