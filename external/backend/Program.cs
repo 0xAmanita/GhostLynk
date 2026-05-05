@@ -13,6 +13,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddScoped<IPasswordHashService, PasswordHashService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddHttpClient<IEmailService, EmailService>();
+builder.Services.AddScoped<IObfuscationService, ObfuscationService>();
 
 // Configure CORS
 var frontendUrl = builder.Configuration["FRONTEND_URL"] ?? "http://localhost:5173";
