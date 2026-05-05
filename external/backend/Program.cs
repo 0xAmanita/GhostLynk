@@ -1,10 +1,18 @@
 using Microsoft.EntityFrameworkCore;
 using backend_deob.Data;
+using backend_deob.Services;
+using backend_deob.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+
+// Register application services
+builder.Services.AddScoped<IPasswordHashService, PasswordHashService>();
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddHttpClient<IEmailService, EmailService>();
 
 // Configure CORS
 var frontendUrl = builder.Configuration["FRONTEND_URL"] ?? "http://localhost:5173";
