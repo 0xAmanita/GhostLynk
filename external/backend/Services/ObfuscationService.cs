@@ -14,12 +14,20 @@ public class ObfuscationService : IObfuscationService
 
     public string Obfuscate(string originalUrl)
     {
-        throw new NotImplementedException();
+        var step1 = CaesarCipher(originalUrl);
+        var step2Bytes = System.Text.Encoding.UTF8.GetBytes(step1);
+        var step3 = XorEncode(step2Bytes);
+        var step4 = CarlSuelloEncode(step3);
+        return Convert.ToBase64String(step4);
     }
 
     public string Deobfuscate(string obfuscatedUrl)
     {
-        throw new NotImplementedException();
+        var step1 = Convert.FromBase64String(obfuscatedUrl);
+        var step2 = CarlSuelloDecode(step1);
+        var step3 = XorDecode(step2);
+        var step4 = System.Text.Encoding.UTF8.GetString(step3);
+        return CaesarDecipher(step4);
     }
 
     private string CaesarCipher(string input)
