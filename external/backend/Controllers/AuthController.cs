@@ -4,6 +4,7 @@ using backend_deob.Models;
 using backend_deob.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 namespace backend_deob.Controllers;
 
@@ -14,15 +15,18 @@ public class AuthController : ControllerBase
     private readonly ApplicationDbContext _context;
     private readonly IPasswordHashService _passwordHashService;
     private readonly IJwtService _jwtService;
+    private readonly IEmailService _emailService;
 
     public AuthController(
         ApplicationDbContext context,
         IPasswordHashService passwordHashService,
-        IJwtService jwtService)
+        IJwtService jwtService,
+        IEmailService emailService)
     {
         _context = context;
         _passwordHashService = passwordHashService;
         _jwtService = jwtService;
+        _emailService = emailService;
     }
 
     [HttpPost("register")]
@@ -90,5 +94,47 @@ public class AuthController : ControllerBase
         };
 
         return Ok(new ApiResponse<AuthResponse> { Success = true, Data = authResponse });
+    }
+
+    [HttpPost("forgot-password")]
+    public async Task<ActionResult<ApiResponse<object>>> ForgotPassword(ForgotPasswordRequest request)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+
+        if (user == null)
+            return Ok(new ApiResponse<object> { Success = true, Message = "If the email exists, a reset link has been sent" });
+
+        var tokenBytes = new byte[32];
+        RandomNumberGenerator.Fill(tokenBytes);
+
+        var token = Convert.ToBase64String(tokenBytes)
+            .Replace("+", "-")
+            .Replace("/", "_")
+            .Replace("=", "");
+
+        var tokenHash = Convert.ToBase64String(
+            SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(token))
+        );
+
+        var resetToken = new PasswordResetToken
+        {
+            Id = Guid.NewGuid(),
+            UserId = user.Id,
+            TokenHash = tokenHash,
+            ExpiresAt = DateTime.UtcNow.AddHours(1),
+            CreatedAt = DateTime.UtcNow
+        };
+
+        _context.PasswordResetTokens.Add(resetToken);
+        await _context.SaveChangesAsync();
+
+        var emailId = await _emailService.SendPasswordResetEmailAsync(user.Email, token);
+        if (emailId != null)
+        {
+            resetToken.ResendEmailId = emailId;
+            await _context.SaveChangesAsync();
+        }
+
+        return Ok(new ApiResponse<object> { Success = true, Message = "If the email exists, a reset link has been sent" });
     }
 }
