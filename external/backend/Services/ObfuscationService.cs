@@ -41,4 +41,19 @@ public class ObfuscationService : IObfuscationService
         }
         return new string(result);
     }
+
+    private byte[] XorEncode(byte[] input)
+    {
+        var result = new byte[input.Length];
+        for (int i = 0; i < input.Length; i++)
+        {
+            result[i] = (byte)(input[i] ^ _xorKey[i % _xorKey.Length]);
+        }
+        return result;
+    }
+
+    private byte[] XorDecode(byte[] input)
+    {
+        return XorEncode(input);
+    }
 }
