@@ -1,0 +1,32 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "external", "external", "{A288BEE0-695A-BEEA-455C-649571D89326}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{4553A506-4E45-D79D-DC1C-6B54012210D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "backend_deob", "external\backend\backend_deob.csproj", "{CC79489E-4EB5-4881-4340-2C25DB808930}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC79489E-4EB5-4881-4340-2C25DB808930}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC79489E-4EB5-4881-4340-2C25DB808930}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC79489E-4EB5-4881-4340-2C25DB808930}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC79489E-4EB5-4881-4340-2C25DB808930}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4553A506-4E45-D79D-DC1C-6B54012210D5} = {A288BEE0-695A-BEEA-455C-649571D89326}
+		{CC79489E-4EB5-4881-4340-2C25DB808930} = {4553A506-4E45-D79D-DC1C-6B54012210D5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F4D8E3FC-99F7-40EE-BC4B-01DA953E63F3}
+	EndGlobalSection
+EndGlobal

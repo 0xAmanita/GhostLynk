@@ -57,3 +57,15 @@ backend_admin/.venv/
 backend_admin/media/
 backend_admin/staticfiles/
 backend_admin/.pytest_cache/
+
+# Python virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment variables
+.env

@@ -2514,25 +2514,24 @@
     ]
   },
   "packageFolders": {
-    "/home/amanita/.nuget/packages/": {}
+    "/home/carl/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/amanita/Documents/projects/Ghostlynk/backend_deob/backend_deob.csproj",
+      "projectUniqueName": "/mnt/c/Users/carl/Desktop/GhostLynk/external/backend/backend_deob.csproj",
       "projectName": "backend_deob",
-      "projectPath": "/home/amanita/Documents/projects/Ghostlynk/backend_deob/backend_deob.csproj",
-      "packagesPath": "/home/amanita/.nuget/packages/",
-      "outputPath": "/home/amanita/Documents/projects/Ghostlynk/backend_deob/obj/",
+      "projectPath": "/mnt/c/Users/carl/Desktop/GhostLynk/external/backend/backend_deob.csproj",
+      "packagesPath": "/home/carl/.nuget/packages/",
+      "outputPath": "/mnt/c/Users/carl/Desktop/GhostLynk/external/backend/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/amanita/.nuget/NuGet/NuGet.Config"
+        "/home/carl/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "/usr/lib/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2551,7 +2550,7 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "10.0.200"
     },
     "frameworks": {
       "net10.0": {
@@ -2595,7 +2594,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.104/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/home/carl/.dotnet/sdk/10.0.203/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
