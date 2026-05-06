@@ -47,7 +47,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowFrontend");
 app.UseHttpsRedirection();
 
-app.UseMiddleware<JwtMiddleware>();
+app.UseMiddleware<JwtAuthenticationMiddleware>();
 
 app.MapControllers();
 

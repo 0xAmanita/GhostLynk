@@ -81,7 +81,7 @@ public class ApplicationDbContext : DbContext
             entity.HasIndex(e => e.UserId);
             entity.HasIndex(e => e.SessionToken).IsUnique();
             entity.HasIndex(e => e.ExpiresAt);
-            entity.Property(e => e.SessionToken).HasMaxLength(255).IsRequired();
+            entity.Property(e => e.SessionToken).HasMaxLength(1000).IsRequired();
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             entity.HasOne(e => e.User)
