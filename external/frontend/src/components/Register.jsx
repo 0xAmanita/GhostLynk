@@ -37,7 +37,7 @@ export default function Register() {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
@@ -47,7 +47,7 @@ export default function Register() {
         <input name="address" placeholder="Address" value={formData.address} onChange={handleChange} required />
         <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
         <input name="passwordConfirm" type="password" placeholder="Confirm Password" value={formData.passwordConfirm} onChange={handleChange} required />
-        {error && <p>{error}</p>}
+        {error && <div className="error">{error}</div>}
         <button type="submit" disabled={loading}>{loading ? 'Registering...' : 'Register'}</button>
       </form>
     </div>

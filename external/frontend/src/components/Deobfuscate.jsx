@@ -43,69 +43,53 @@ export default function Deobfuscate() {
   };
 
   return (
-    <div style={{ maxWidth: '600px', margin: '2rem auto', padding: '0 1rem' }}>
+    <div className="container">
       <h2>Deobfuscate</h2>
       
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <div>
-          <label htmlFor="obfuscatedText">Obfuscated Text</label>
-          <textarea
-            id="obfuscatedText"
-            name="obfuscatedText"
-            value={formData.obfuscatedText}
-            onChange={handleChange}
-            required
-            rows="4"
-            style={{ width: '100%', padding: '0.5rem' }}
-          />
-        </div>
+      <form onSubmit={handleSubmit}>
+        <textarea
+          name="obfuscatedText"
+          value={formData.obfuscatedText}
+          onChange={handleChange}
+          placeholder="Paste obfuscated text here"
+          required
+          rows="4"
+        />
 
-        <div>
-          <label htmlFor="nickname">Nickname</label>
-          <input
-            type="text"
-            id="nickname"
-            name="nickname"
-            value={formData.nickname}
-            onChange={handleChange}
-            required
-            maxLength="50"
-            style={{ width: '100%', padding: '0.5rem' }}
-          />
-        </div>
+        <input
+          type="text"
+          name="nickname"
+          value={formData.nickname}
+          onChange={handleChange}
+          placeholder="Nickname"
+          required
+          maxLength="50"
+        />
 
-        <div>
-          <label htmlFor="passkey">Passkey</label>
-          <input
-            type="password"
-            id="passkey"
-            name="passkey"
-            value={formData.passkey}
-            onChange={handleChange}
-            required
-            style={{ width: '100%', padding: '0.5rem' }}
-          />
-        </div>
+        <input
+          type="password"
+          name="passkey"
+          value={formData.passkey}
+          onChange={handleChange}
+          placeholder="Passkey"
+          required
+        />
 
-        <button type="submit" disabled={loading} style={{ padding: '0.75rem', cursor: 'pointer' }}>
+        {error && <div className="error">{error}</div>}
+
+        {result && (
+          <div className="success">
+            <h3>Success!</h3>
+            <p><strong>Original URL:</strong> <a href={result.originalUrl} target="_blank" rel="noopener noreferrer">{result.originalUrl}</a></p>
+            <p><strong>Nickname:</strong> {result.nickname}</p>
+            <p><strong>Created:</strong> {new Date(result.createdAt).toLocaleString()}</p>
+          </div>
+        )}
+
+        <button type="submit" disabled={loading}>
           {loading ? 'Processing...' : 'Deobfuscate'}
         </button>
       </form>
-
-      {error && (
-        <div style={{ marginTop: '1rem', padding: '1rem', backgroundColor: '#fee', border: '1px solid #fcc', borderRadius: '4px' }}>
-          {error}
-        </div>
-      )}
-
-      {result && (
-        <div style={{ marginTop: '1rem', padding: '1rem', backgroundColor: '#efe', border: '1px solid #cfc', borderRadius: '4px' }}>
-          <h3>Success!</h3>
-          <p><strong>Original URL:</strong> <a href={result.originalUrl} target="_blank" rel="noopener noreferrer">{result.originalUrl}</a></p>
-          <p><strong>Nickname:</strong> {result.nickname}</p>
-          <p><strong>Created:</strong> {new Date(result.createdAt).toLocaleString()}</p>
-        </div>
-      )}
     </div>
   );
 }

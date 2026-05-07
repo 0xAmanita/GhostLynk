@@ -25,12 +25,12 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Forgot Password</h2>
       <form onSubmit={handleSubmit}>
         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        {message && <p>{message}</p>}
-        {error && <p>{error}</p>}
+        {message && <div className="success">{message}</div>}
+        {error && <div className="error">{error}</div>}
         <button type="submit" disabled={loading}>{loading ? 'Sending...' : 'Send Reset Link'}</button>
       </form>
     </div>

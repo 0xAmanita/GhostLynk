@@ -43,15 +43,15 @@ export default function PublicFeed() {
   };
 
   if (loading && entries.length === 0) {
-    return <div className="loading">Loading feed...</div>;
+    return <div className="container"><div className="loading">Loading feed...</div></div>;
   }
 
   return (
-    <div className="public-feed">
+    <div className="container">
       <h2>Public Feed</h2>
       <p className="feed-info">Total entries: {totalCount}</p>
 
-      {error && <div className="error-message">{error}</div>}
+      {error && <div className="error">{error}</div>}
 
       {entries.length === 0 ? (
         <p className="no-entries">No entries yet. Be the first to submit a URL!</p>

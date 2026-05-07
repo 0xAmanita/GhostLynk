@@ -34,12 +34,12 @@ export default function ResetPassword() {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Reset Password</h2>
       <form onSubmit={handleSubmit}>
         <input name="password" type="password" placeholder="New Password" value={formData.password} onChange={handleChange} required />
         <input name="passwordConfirm" type="password" placeholder="Confirm Password" value={formData.passwordConfirm} onChange={handleChange} required />
-        {error && <p>{error}</p>}
+        {error && <div className="error">{error}</div>}
         <button type="submit" disabled={loading}>{loading ? 'Resetting...' : 'Reset Password'}</button>
       </form>
     </div>
