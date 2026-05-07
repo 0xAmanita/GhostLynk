@@ -33,7 +33,7 @@ class UrlEntry(models.Model):
     obfuscated_url = models.TextField(unique=True)
     nickname       = models.CharField(max_length=255)
     passkey_hash   = models.CharField(max_length=255)
-    failed_atempts = models.IntegerField(default=0)  # ERD typo preserved
+    failed_attempts = models.IntegerField(default=0)
     is_locked      = models.BooleanField(default=False)
     created_at     = models.DateTimeField()
     updated_at     = models.DateTimeField()
@@ -53,7 +53,7 @@ class Session(models.Model):
                                db_column="user_id", related_name="sessions")
     session_token        = models.CharField(max_length=255, unique=True)
     last_submit_at       = models.DateTimeField(null=True, blank=True)
-    last_deobfuscated_at = models.DateTimeField(null=True, blank=True)
+    last_deobfuscate_at = models.DateTimeField(null=True, blank=True)
     created_at           = models.DateTimeField()
     expires_at           = models.DateTimeField()
 

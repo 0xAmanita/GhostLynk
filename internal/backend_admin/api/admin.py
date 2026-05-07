@@ -21,13 +21,13 @@ class UrlEntryAdmin(admin.ModelAdmin):
         "nickname", "original_url", "obfuscated_url",
         "get_user_id", "get_ip", "get_city", "get_region",
         "get_country", "get_org", "get_timezone",
-        "is_locked", "failed_atempts", "created_at",
+        "is_locked", "failed_attempts", "created_at",
     ]
     list_filter   = ["is_locked"]
     search_fields = ["nickname", "original_url", "obfuscated_url"]
     readonly_fields = [
         "id", "obfuscated_url", "passkey_hash",
-        "failed_atempts", "created_at", "updated_at",
+        "failed_attempts", "created_at", "updated_at",
     ]
     inlines = [IpMetadataInline]
     actions = ["unlock_entries"]
@@ -68,7 +68,7 @@ class UrlEntryAdmin(admin.ModelAdmin):
     get_timezone.short_description = "Timezone"
 
     def unlock_entries(self, request, queryset):
-        queryset.update(is_locked=False, failed_atempts=0)
+        queryset.update(is_locked=False, failed_attempts=0)
         self.message_user(request, f"{queryset.count()} entry/entries unlocked.")
     unlock_entries.short_description = "Unlock selected entries"
 
@@ -115,12 +115,12 @@ class AdminLogAdmin(admin.ModelAdmin):
 class SessionAdmin(admin.ModelAdmin):
     list_display  = [
         "user", "session_token",
-        "last_submit_at", "last_deobfuscated_at",
+        "last_submit_at", "last_deobfuscate_at",
         "created_at", "expires_at"
     ]
     readonly_fields = [
         "id", "user", "session_token",
-        "last_submit_at", "last_deobfuscated_at",
+        "last_submit_at", "last_deobfuscate_at",
         "created_at", "expires_at"
     ]
 
