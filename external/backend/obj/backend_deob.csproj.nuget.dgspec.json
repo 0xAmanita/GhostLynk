@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/amanita/Documents/projects/Ghostlynk/backend_deob/backend_deob.csproj": {}
+    "/root/GhostLynk/external/backend/backend_deob.csproj": {}
   },
   "projects": {
-    "/home/amanita/Documents/projects/Ghostlynk/backend_deob/backend_deob.csproj": {
+    "/root/GhostLynk/external/backend/backend_deob.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/amanita/Documents/projects/Ghostlynk/backend_deob/backend_deob.csproj",
+        "projectUniqueName": "/root/GhostLynk/external/backend/backend_deob.csproj",
         "projectName": "backend_deob",
-        "projectPath": "/home/amanita/Documents/projects/Ghostlynk/backend_deob/backend_deob.csproj",
-        "packagesPath": "/home/amanita/.nuget/packages/",
-        "outputPath": "/home/amanita/Documents/projects/Ghostlynk/backend_deob/obj/",
+        "projectPath": "/root/GhostLynk/external/backend/backend_deob.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/root/GhostLynk/external/backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/amanita/.nuget/NuGet/NuGet.Config"
+          "/root/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -49,6 +49,10 @@
               "target": "Package",
               "version": "[4.1.0, )"
             },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[10.0.4, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[10.0.4, )"
@@ -59,9 +63,9 @@
               "target": "Package",
               "version": "[10.0.5, )"
             },
-            "Microsoft.EntityFrameworkCore.Sqlite": {
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[10.0.5, )"
+              "version": "[10.0.0, )"
             }
           },
           "imports": [
@@ -83,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.104/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.107/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
