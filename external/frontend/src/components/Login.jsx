@@ -38,12 +38,12 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input name="emailOrUsername" placeholder="Email or Username" value={formData.emailOrUsername} onChange={handleChange} required />
         <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
-        {error && <p>{error}</p>}
+        {error && <div className="error">{error}</div>}
         <button type="submit" disabled={loading}>{loading ? 'Logging in...' : 'Login'}</button>
       </form>
     </div>

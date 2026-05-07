@@ -12,21 +12,23 @@ export default function Navbar() {
 
   return (
     <nav>
-      {!user && <Link to="/">Home</Link>}
-      {user ? (
-        <>
-          <Link to="/feed">Feed</Link>
-          <Link to="/submit">Submit</Link>
-          <Link to="/deobfuscate">Deobfuscate</Link>
-          <span>Welcome, {user.username}</span>
-          <button onClick={handleLogout}>Logout</button>
-        </>
-      ) : (
-        <>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-        </>
-      )}
+      <div className="nav-content">
+        {!user && <Link to="/">Home</Link>}
+        {user ? (
+          <>
+            <Link to="/feed">Feed</Link>
+            <Link to="/submit">Submit</Link>
+            <Link to="/deobfuscate">Deobfuscate</Link>
+            <span>Welcome, {user.username}</span>
+            <button onClick={handleLogout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+          </>
+        )}
+      </div>
     </nav>
   );
 }

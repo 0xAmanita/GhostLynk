@@ -69,51 +69,39 @@ export default function UrlSubmissionForm({ onSubmitSuccess }) {
   };
 
   return (
-    <div className="url-submission-form">
+    <div className="container">
       <h2>Submit URL</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="url">URL</label>
-          <input
-            type="text"
-            id="url"
-            name="url"
-            value={formData.url}
-            onChange={handleChange}
-            placeholder="https://example.com"
-            required
-          />
-        </div>
+        <input
+          type="text"
+          name="url"
+          value={formData.url}
+          onChange={handleChange}
+          placeholder="https://example.com"
+          required
+        />
 
-        <div className="form-group">
-          <label htmlFor="nickname">Title</label>
-          <input
-            type="text"
-            id="nickname"
-            name="nickname"
-            value={formData.nickname}
-            onChange={handleChange}
-            placeholder="Enter a title"
-            maxLength={50}
-            required
-          />
-        </div>
+        <input
+          type="text"
+          name="nickname"
+          value={formData.nickname}
+          onChange={handleChange}
+          placeholder="Enter a title"
+          maxLength={50}
+          required
+        />
 
-        <div className="form-group">
-          <label htmlFor="passkey">Passkey</label>
-          <input
-            type="password"
-            id="passkey"
-            name="passkey"
-            value={formData.passkey}
-            onChange={handleChange}
-            placeholder="Enter a passkey"
-            required
-          />
-        </div>
+        <input
+          type="password"
+          name="passkey"
+          value={formData.passkey}
+          onChange={handleChange}
+          placeholder="Enter a passkey"
+          required
+        />
 
-        {error && <div className="error-message">{error}</div>}
-        {success && <div className="success-message">{success}</div>}
+        {error && <div className="error">{error}</div>}
+        {success && <div className="success">{success}</div>}
 
         <button type="submit" disabled={loading}>
           {loading ? 'Submitting...' : 'Submit URL'}
