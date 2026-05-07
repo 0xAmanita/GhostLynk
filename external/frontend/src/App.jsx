@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -10,6 +10,11 @@ import PublicFeed from './components/PublicFeed';
 import Deobfuscate from './components/Deobfuscate';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
+
+function HomeRedirect() {
+  const { user } = useAuth();
+  return <Navigate to={user ? "/feed" : "/login"} replace />;
+}
 
 function App() {
   return (
@@ -45,7 +50,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/" element={<HomeRedirect />} />
         </Routes>
       </Router>
     </AuthProvider>
