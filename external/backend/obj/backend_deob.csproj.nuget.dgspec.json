@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/root/GhostLynk/external/backend/backend_deob.csproj": {}
+    "/home/amanita/Projects/GhostLynk/external/backend/backend_deob.csproj": {}
   },
   "projects": {
-    "/root/GhostLynk/external/backend/backend_deob.csproj": {
+    "/home/amanita/Projects/GhostLynk/external/backend/backend_deob.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/root/GhostLynk/external/backend/backend_deob.csproj",
+        "projectUniqueName": "/home/amanita/Projects/GhostLynk/external/backend/backend_deob.csproj",
         "projectName": "backend_deob",
-        "projectPath": "/root/GhostLynk/external/backend/backend_deob.csproj",
-        "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/root/GhostLynk/external/backend/obj/",
+        "projectPath": "/home/amanita/Projects/GhostLynk/external/backend/backend_deob.csproj",
+        "packagesPath": "/home/amanita/.nuget/packages/",
+        "outputPath": "/home/amanita/Projects/GhostLynk/external/backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/home/amanita/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
