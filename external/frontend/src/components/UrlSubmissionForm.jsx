@@ -86,14 +86,14 @@ export default function UrlSubmissionForm({ onSubmitSuccess }) {
         </div>
 
         <div className="form-group">
-          <label htmlFor="nickname">Nickname</label>
+          <label htmlFor="nickname">Title</label>
           <input
             type="text"
             id="nickname"
             name="nickname"
             value={formData.nickname}
             onChange={handleChange}
-            placeholder="Enter a nickname"
+            placeholder="Enter a title"
             maxLength={50}
             required
           />
